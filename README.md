@@ -1,4 +1,4 @@
-# RoSE
+# RoSE: Targeting Negative Flips in Active Learning using Validation Set
 Official code repository for *Targeting Negative Flips in Active Learning using Validation Set* paper presented at IEEE International Conference on Big Data 2024, Washington DC, USA.
 
 Work conducted at [OLIVES@GaTech](https://alregib.ece.gatech.edu). Arxiv paper available at [https://arxiv.org/pdf/2405.13758](https://arxiv.org/pdf/2405.13758).
@@ -22,3 +22,7 @@ Second, run the installation process:
 ```poetry install```
 
 This should install all necessary packages and dependecies. If you want to add dependencies, add them in the pyproject.toml file in the same fashion.
+
+## Questions?
+
+If you have any questions, regarding the dataset or the code, you can contact the authors [(mohit.p@gatech.edu)](mohit.p@gatech.edu), or even better open an issue in this repo and we'll do our best to help.
