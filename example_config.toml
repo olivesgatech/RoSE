@@ -1,0 +1,134 @@
+[classification]
+track_statistics = false
+model = 'resnet-18'
+loss = 'ce'
+epochs = 200
+batch_size = 10
+test_batch_size = 10
+pc_training = false
+
+[classification.optimization]
+# active learning
+lr = 0.001
+optimizer = 'adam'
+scheduler = 'multiLR'
+multiLR_steps = 2
+gamma = 0.1
+# classification
+#lr = 0.1
+#optimizer = 'sgd'
+#scheduler = 'multiLR'
+#multiLR_steps = 4
+#gamma = 0.2
+
+[classification.pctraining]
+alpha = 1
+beta = 5
+
+[segmentation]
+track_statistics = true
+model = 'deeplab-v3'
+loss = 'ce'
+epochs = 70
+batch_size = 32
+
+[segmentation.optimization]
+lr = 5e-5
+optimizer = 'adam'
+scheduler = 'none'
+multiLR_steps = 2
+gamma = 0.1
+
+[uspec_configs]
+num_seeds = 5
+
+[uspec_configs.segmentation]
+save_predictions = true
+save_uspec_mean = true
+
+[run_configs]
+output_folder_name = 'run'
+ld_folder_name = 'testld_output/'
+resume = 'none'
+cuda = false
+gpu_id = 0
+train = true # when running with uspec analysis this flag will track predictions on the training set
+test = true # when running with uspec analysis this flag will track predictions on the test set
+val = true # only segmentation
+
+[run_configs.ood]
+svhn = true # only classification
+mnist = true # only classification
+cifar10 = false # only classification
+stl10 = true # only classification
+cifar10C = false
+cifar100 = false
+
+[active_learning]
+n_start = 128
+n_end = 4000
+n_query = 1024
+strategy = 'idealflipsampling'
+init_seed = 0
+convergence_acc = 2.0
+save_query_idxs = false
+save_switches = false
+ideal_model_path = 'none'
+
+# seed range for parallel running
+start_seed = 0
+end_seed = 1
+
+[active_learning.stats]
+stat_sampling_type = 'SV'
+pcal_sampling_type = 'pc'
+flip_sampling_type = 'bc'
+secondary_samping_type = 'random'
+relaxation = 1024
+
+[data]
+dataset = 'XRAY' # choice between MNIST, CIFAR10 etc.
+num_classes = -1 # only for CIFAR100. Number of classes to use. -1 indicates all classes
+#data_loc = '/data/ryan/'
+data_loc = '~/PycharmProjects/Dataset/'
+#data_loc = '~/data/'
+download = false # specifies wether to download the dataset or not
+
+[data.augmentations]
+random_crop = false
+random_hflip = false
+random_rotate = false # only segmentation
+cutout = false # only classification
+
+[data.seismic.sets]
+training_xline = true
+training_inline = true
+val_xline = true
+val_inline = true
+test1_xline = true
+test1_inline = true
+test2_xline = true
+test2_inline = true
+
+[visualization]
+# classification
+#hist_visualization_folder = '~/PycharmProjects/USPEC-LD/visualization/classification/ld_output/ld_statistics/'
+#uspec_visualization_folder = '~/PycharmProjects/Results/USPEC-LD/classification/classification_CIFAR10/uspec_statistics/'
+
+# segmentation
+hist_visualization_folder = '~/PycharmProjects/Results/USPEC-LD/segmentation/ld_output_seismic/ld_statistics/'
+uspec_visualization_folder = '~/PycharmProjects/Results/USPEC-LD/segmentation/segmentation_seismic_USPECAnalysis/uspec_statistics/'
+machine = 'win'
+hist_bin_param = 'auto' # auto for classification
+dist_type = 'js' # currently only jennsen shannon supported
+
+[visualization.seismic]
+#target_volume = '~/PycharmProjects/Results/USPEC-LD/segmentation/ld_output_seismic/ld_statistics/test1_inline/switch_events.npy'
+training_volume = '~/datasets/parihaka/parihaka_labels_processed.npy'
+# target_volume = '~/PycharmProjects/Results/USPEC-LD/segmentation/segmentation_seismic_USPECAnalysis/uspec_statistics/test1_inline/uspec-entropy.npy'
+target_volume = '~/datasets/parihaka/parihaka_labels_processed.npy'
+calculate_distances = false
+evaluation_view = 'inline'
+
+
+
